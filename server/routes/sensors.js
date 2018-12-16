@@ -1,5 +1,5 @@
 const express = require('express');
-const Sensores = require('../models/sensores');
+const Sensores = require('../models/sensors');
 let { rezoned } = require('../config/config');
 const { getDataDay } = require('../helpers/getDataDay');
 const { getDataMonth } = require('../helpers/getDataMonth');

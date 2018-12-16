@@ -66,13 +66,13 @@ const getDataDay = (sensorDb) => {
         moduleHumidity.m4.push(element.humidity[3]);
         totalHumidityM4 += element.humidity[3];
 
-        moduleAirQuiality.m1.push(element.airQuality[0]);
+        moduleAirQuiality.m1.push(element.airQuality[0]*100/1000);
         totalAirQualityM1 += element.airQuality[0];
-        moduleAirQuiality.m2.push(element.airQuality[1]);
+        moduleAirQuiality.m2.push(element.airQuality[1]*100/1000);
         totalAirQualityM2 += element.airQuality[1];
-        moduleAirQuiality.m3.push(element.airQuality[2]);
+        moduleAirQuiality.m3.push(element.airQuality[2]*100/1000);
         totalAirQualityM3 += element.airQuality[2];
-        moduleAirQuiality.m4.push(element.airQuality[3]);
+        moduleAirQuiality.m4.push(element.airQuality[3]*100/1000);
         totalAirQualityM4 += element.airQuality[3];
 
         let temperatureArray = [],
@@ -127,7 +127,7 @@ const getDataDay = (sensorDb) => {
                 for (let i = 0; i < airQualityArray.length; i++) {
                     airQualityContainer += airQualityArray[i];
                 }
-                totalRelativeAirQuality.push(airQualityContainer / 4);
+                totalRelativeAirQuality.push((airQualityContainer / 4) * 100 / 1000);
                 airQualityArray = [];
             }
         });
@@ -146,10 +146,10 @@ const getDataDay = (sensorDb) => {
     totalHumidityModules.push(totalHumidityM4 / moduleHumidity.m4.length);
 
     let totalAirQuialityModules = [];
-    totalAirQuialityModules.push(totalAirQualityM1 / moduleAirQuiality.m1.length);
-    totalAirQuialityModules.push(totalAirQualityM2 / moduleAirQuiality.m2.length);
-    totalAirQuialityModules.push(totalAirQualityM3 / moduleAirQuiality.m3.length);
-    totalAirQuialityModules.push(totalAirQualityM4 / moduleAirQuiality.m4.length);
+    totalAirQuialityModules.push((totalAirQualityM1 / moduleAirQuiality.m1.length) * 100 / 1000);
+    totalAirQuialityModules.push((totalAirQualityM2 / moduleAirQuiality.m2.length) * 100 / 1000);
+    totalAirQuialityModules.push((totalAirQualityM3 / moduleAirQuiality.m3.length) * 100 / 1000);
+    totalAirQuialityModules.push((totalAirQualityM4 / moduleAirQuiality.m4.length) * 100 / 1000);
 
     return {
         moduleTemperature,
@@ -160,7 +160,7 @@ const getDataDay = (sensorDb) => {
         totalRelativeAirQuality,
         totalTemperature: totalTemperatureContainer / totalTemperature.length,
         totalHumidity: totalHumidityContainer / totalHumidity.length,
-        totalAirQuality: totalAirQualityContainer / totalAirQuality.length,
+        totalAirQuality: (totalAirQualityContainer / totalAirQuality.length) * 100 / 1000,
         totalTemperatureModules,
         totalHumidityModules,
         totalAirQuialityModules,

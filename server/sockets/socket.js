@@ -1,6 +1,6 @@
 const { io } = require('../server');
-const Notificar = require('../models/notificaciones');
-const Sensores = require('../models/sensores');
+const Notificar = require('../models/notifications');
+const Sensores = require('../models/sensors');
 const nodemailer = require('nodemailer');
 let { rezoned } = require('../config/config');
 

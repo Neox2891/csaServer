@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 
-let notificarSchema = new Schema({
+let notificationsSchema = new Schema({
     notificacion: String,
     module: String,
     parameter: String,
@@ -13,4 +13,4 @@ let notificarSchema = new Schema({
     email: String
 });
 
-module.exports = mongoose.model('Notificaciones', notificarSchema);
+module.exports = mongoose.model('Notifications', notificationsSchema);

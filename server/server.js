@@ -24,7 +24,7 @@ app.use(require('./routes/index'));
 module.exports.io = socketIO(server);
 require('./sockets/socket');
 
-mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
+mongoose.connect('mongodb://csa:Juniortupapa.1@ds123603.mlab.com:23603/csa_db', { useNewUrlParser: true }, (err) => {
 
     if (err) {
         throw err;

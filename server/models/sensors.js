@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 
-let sensoresSchema = new Schema({
+let sensorsSchema = new Schema({
 
     temperature: [Number],
     humidity: [Number],
@@ -24,4 +24,4 @@ let sensoresSchema = new Schema({
     actuadores: [Boolean]
 });
 
-module.exports = mongoose.model('Sensores', sensoresSchema);
+module.exports = mongoose.model('Sensors', sensorsSchema);
