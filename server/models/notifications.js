@@ -13,4 +13,4 @@ let notificationsSchema = new Schema({
     email: String
 });
 
-module.exports = mongoose.model('Notifications', notificationsSchema);
+module.exports = mongoose.model('Notificaciones', notificationsSchema);

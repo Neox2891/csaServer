@@ -24,4 +24,4 @@ let sensorsSchema = new Schema({
     actuadores: [Boolean]
 });
 
-module.exports = mongoose.model('Sensors', sensorsSchema);
+module.exports = mongoose.model('Sensores', sensorsSchema);
