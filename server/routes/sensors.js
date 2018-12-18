@@ -67,7 +67,7 @@ app.get('/sensores/datos/search', (req, res) => {
         });
 });
 
-//obtener datos por dia
+//obtener datos por mes
 app.get('/sensores/datos/:mesAno', (req, res) => {
 
     let mesAno = req.params.mesAno.split('-');

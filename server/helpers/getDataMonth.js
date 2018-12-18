@@ -46,7 +46,7 @@ let getDataMonth = (sensorDb, monthInDays) => {
             totalAirQuiality: day.totalAirQuality
         };
         // console.log(typeof day.totalTemperature);
-        if (day.moduleTemperature.m1.length !== 0) {
+        if (day.temperature.m1.length !== 0) {
             monthsArray.push(dayObject);
         }
 
