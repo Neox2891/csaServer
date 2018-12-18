@@ -104,7 +104,7 @@ app.get('/sensores/datos/:mesAno', (req, res) => {
                     }
                 });
             }
-
+            // console.log(sensorDB);
             let metrics = getDataMonth(sensorDB, monthid.days);
 
             res.status(200).json({

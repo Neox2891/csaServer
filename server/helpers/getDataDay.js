@@ -12,7 +12,7 @@ const getDataDay = (sensorDb) => {
         m3: [],
         m4: [],
     };
-    let moduleAirQuiality = {
+    let moduleAirQuality = {
         m1: [],
         m2: [],
         m3: [],
@@ -29,51 +29,57 @@ const getDataDay = (sensorDb) => {
         totalHumidityContainer = 0,
         totalAirQualityContainer = 0;
 
-    let totalTemperatureM1 = 0,
-        totalTemperatureM2 = 0,
-        totalTemperatureM3 = 0,
-        totalTemperatureM4 = 0;
+    let totalModulesTemperature = {
+        temperatureM1: 0,
+        temperatureM2: 0,
+        temperatureM3: 0,
+        temperatureM4: 0
+    };
+    
+    let totalModulesHumidity = {
+        humidityM1: 0,
+        humidityM2: 0,
+        humidityM3: 0,
+        humidityM4: 0
+    };
 
-    let totalHumidityM1 = 0,
-        totalHumidityM2 = 0,
-        totalHumidityM3 = 0,
-        totalHumidityM4 = 0;
-
-    let totalAirQualityM1 = 0,
-        totalAirQualityM2 = 0,
-        totalAirQualityM3 = 0,
-        totalAirQualityM4 = 0;
+    let totalModulesAirQuality = {
+        airQualityM1: 0,
+        airQualityM2: 0,
+        airQualityM3: 0,
+        airQualityM4: 0
+    };
 
     sensorDb.forEach(element => {
 
         hours.push(element.date.hours.toString().concat(':', element.date.minutes));
 
         moduleTemperature.m1.push(element.temperature[0]);
-        totalTemperatureM1 += element.temperature[0];
+        totalModulesTemperature.temperatureM1 += element.temperature[0];
         moduleTemperature.m2.push(element.temperature[1]);
-        totalTemperatureM2 += element.temperature[1];
+        totalModulesTemperature.temperatureM2 += element.temperature[1];
         moduleTemperature.m3.push(element.temperature[2]);
-        totalTemperatureM3 += element.temperature[2];
+        totalModulesTemperature.temperatureM3 += element.temperature[2];
         moduleTemperature.m4.push(element.temperature[3]);
-        totalTemperatureM4 += element.temperature[3];
+        totalModulesTemperature.temperatureM4 += element.temperature[3];
 
         moduleHumidity.m1.push(element.humidity[0]);
-        totalHumidityM1 += element.humidity[0];
+        totalModulesHumidity.humidityM1 += element.humidity[0];
         moduleHumidity.m2.push(element.humidity[1]);
-        totalHumidityM2 += element.humidity[1];
+        totalModulesHumidity.humidityM2 += element.humidity[1];
         moduleHumidity.m3.push(element.humidity[2]);
-        totalHumidityM3 += element.humidity[2];
+        totalModulesHumidity.humidityM3 += element.humidity[2];
         moduleHumidity.m4.push(element.humidity[3]);
-        totalHumidityM4 += element.humidity[3];
+        totalModulesHumidity.humidityM4 += element.humidity[3];
 
-        moduleAirQuiality.m1.push(element.airQuality[0]*100/1000);
-        totalAirQualityM1 += element.airQuality[0];
-        moduleAirQuiality.m2.push(element.airQuality[1]*100/1000);
-        totalAirQualityM2 += element.airQuality[1];
-        moduleAirQuiality.m3.push(element.airQuality[2]*100/1000);
-        totalAirQualityM3 += element.airQuality[2];
-        moduleAirQuiality.m4.push(element.airQuality[3]*100/1000);
-        totalAirQualityM4 += element.airQuality[3];
+        moduleAirQuality.m1.push(element.airQuality[0]*100/1000);
+        totalModulesAirQuality.airQualityM1 += element.airQuality[0];
+        moduleAirQuality.m2.push(element.airQuality[1]*100/1000);
+        totalModulesAirQuality.airQualityM2 += element.airQuality[1];
+        moduleAirQuality.m3.push(element.airQuality[2]*100/1000);
+        totalModulesAirQuality.airQualityM3 += element.airQuality[2];
+        moduleAirQuality.m4.push(element.airQuality[3]*100/1000);
+        totalModulesAirQuality.airQualityM4 += element.airQuality[3];
 
         let temperatureArray = [],
             humidityArray = [],
@@ -133,32 +139,20 @@ const getDataDay = (sensorDb) => {
         });
     });
 
-    let totalTemperatureModules = [];
-    totalTemperatureModules.push(totalTemperatureM1 / moduleTemperature.m1.length);
-    totalTemperatureModules.push(totalTemperatureM2 / moduleTemperature.m2.length);
-    totalTemperatureModules.push(totalTemperatureM3 / moduleTemperature.m3.length);
-    totalTemperatureModules.push(totalTemperatureM4 / moduleTemperature.m4.length);
+    totalDayModules({ totalModulesTemperature, moduleTemperature }, 
+                    {totalModulesHumidity, moduleHumidity},
+                     {totalModulesAirQuality, moduleAirQuality});
 
-    let totalHumidityModules = [];
-    totalHumidityModules.push(totalHumidityM1 / moduleHumidity.m1.length);
-    totalHumidityModules.push(totalHumidityM2 / moduleHumidity.m2.length);
-    totalHumidityModules.push(totalHumidityM3 / moduleHumidity.m3.length);
-    totalHumidityModules.push(totalHumidityM4 / moduleHumidity.m4.length);
-
-    let totalAirQuialityModules = [];
-    totalAirQuialityModules.push((totalAirQualityM1 / moduleAirQuiality.m1.length) * 100 / 1000);
-    totalAirQuialityModules.push((totalAirQualityM2 / moduleAirQuiality.m2.length) * 100 / 1000);
-    totalAirQuialityModules.push((totalAirQualityM3 / moduleAirQuiality.m3.length) * 100 / 1000);
-    totalAirQuialityModules.push((totalAirQualityM4 / moduleAirQuiality.m4.length) * 100 / 1000);
+    
 
     return {
         temperature: moduleTemperature,
         humidity: moduleHumidity,
-        airQuality: moduleAirQuiality,
+        airQuality: moduleAirQuality,
         totalModules: {
             temperature: totalRelativeTemperature,
             humidity: totalRelativeHumidity,
-            airQuiality: totalRelativeAirQuality
+            airQuality: totalRelativeAirQuality
         },        
         totalTemperature: totalTemperatureContainer / totalTemperature.length,
         totalHumidity: totalHumidityContainer / totalHumidity.length,
@@ -168,6 +162,35 @@ const getDataDay = (sensorDb) => {
 
 }
 
+let totalDayModules =  (temperature, humidity, airQuality) => {
+
+    let totalTemperatureModules = [];
+    totalTemperatureModules.push(temperature.totalModulesTemperature.temperatureM1 / temperature.moduleTemperature.m1.length);
+    totalTemperatureModules.push(temperature.totalModulesTemperature.temperatureM2 / temperature.moduleTemperature.m2.length);
+    totalTemperatureModules.push(temperature.totalModulesTemperature.temperatureM3 / temperature.moduleTemperature.m3.length);
+    totalTemperatureModules.push(temperature.totalModulesTemperature.temperatureM4 / temperature.moduleTemperature.m4.length);
+
+    let totalHumidityModules = [];
+    totalHumidityModules.push(humidity.totalModulesHumidity.humidityM1 / humidity.moduleHumidity.m1.length);
+    totalHumidityModules.push(humidity.totalModulesHumidity.humidityM2 / humidity.moduleHumidity.m2.length);
+    totalHumidityModules.push(humidity.totalModulesHumidity.humidityM3 / humidity.moduleHumidity.m3.length);
+    totalHumidityModules.push(humidity.totalModulesHumidity.humidityM4 / humidity.moduleHumidity.m4.length);
+
+    let totalAirQualityModules = [];
+    totalAirQualityModules.push((airQuality.totalModulesAirQuality.airQualityM1 / airQuality.moduleAirQuality.m1.length) * 100 / 1000);
+    totalAirQualityModules.push((airQuality.totalModulesAirQuality.airQualityM2 / airQuality.moduleAirQuality.m2.length) * 100 / 1000);
+    totalAirQualityModules.push((airQuality.totalModulesAirQuality.airQualityM3 / airQuality.moduleAirQuality.m3.length) * 100 / 1000);
+    totalAirQualityModules.push((airQuality.totalModulesAirQuality.airQualityM4 / airQuality.moduleAirQuality.m4.length) * 100 / 1000);
+
+    return {
+        totalTemperatureModules,
+        totalHumidityModules,
+        totalAirQualityModules
+    }
+
+}
+
 module.exports = {
-    getDataDay
+    getDataDay,
+    totalDayModules
 }
