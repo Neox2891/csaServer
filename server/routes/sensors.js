@@ -72,9 +72,11 @@ app.get('/sensores/datos/:mesAno', (req, res) => {
 
     let mesAno = req.params.mesAno.split('-');
 
-    let month = mesAno[0];
+    let idMonth = mesAno[0];
     let year = mesAno[1];
 
+    let month = parseInt(idMonth, 10);
+    
     const months = [{ id: 1, month: 'enero', days: 31 }, { id: 2, month: 'febrero', days: 28 },
         { id: 3, month: 'marzo', days: 31 }, { id: 4, month: 'abril', days: 30 }, { id: 5, month: 'mayo', days: 31 },
         { id: 6, month: 'junio', days: 30 }, { id: 7, month: 'julio', days: 31 }, { id: 8, month: 'agosto', days: 31 },
@@ -82,8 +84,8 @@ app.get('/sensores/datos/:mesAno', (req, res) => {
         { id: 11, month: 'noviembre', days: 30 }, { id: 12, month: 'diciembre', days: 31 }
     ];
 
-    let monthid = months.find(element => element.month === month);
-
+    let monthid = months.find(element => element.id === month);
+    
     Sensores.find({ 'date.month': monthid.id, 'date.year': year })
         .exec((err, sensorDB) => {
 
