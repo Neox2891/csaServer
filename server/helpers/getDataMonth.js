@@ -114,7 +114,7 @@ let getDataMonth = (sensorDb, monthInDays) => {
             id: element,
             temperature: totalTemperatureModules,
             humidity: totalHumidityModules,
-            airQuiality: totalAirQualityModules,
+            airQuality: totalAirQualityModules,
             totalTemperature: day.totalTemperature,
             totalHumidity: day.totalHumidity,
             totalAirQuiality: day.totalAirQuality
