@@ -117,7 +117,7 @@ let getDataMonth = (sensorDb, monthInDays) => {
             airQuality: totalAirQualityModules,
             totalTemperature: day.totalTemperature,
             totalHumidity: day.totalHumidity,
-            totalAirQuiality: day.totalAirQuality
+            totalAirQuality: day.totalAirQuality
         };
         
         if (day.temperature.m1.length !== 0) {
