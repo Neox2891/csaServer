@@ -24,14 +24,14 @@ app.use(require('./routes/index'));
 module.exports.io = socketIO(server);
 require('./sockets/socket');
 
-mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
+// mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
     
-    if (err) {
-        throw err;
-    }
+//     if (err) {
+//         throw err;
+//     }
 
-    console.log('Conectado con base de datos!');
-});
+//     console.log('Conectado con base de datos!');
+// });
 
 server.listen(process.env.PORT, (err) => {
 

@@ -3,6 +3,7 @@ const Notificar = require('../models/notifications');
 const Sensores = require('../models/sensors');
 const nodemailer = require('nodemailer');
 let { rezoned } = require('../config/config');
+const socket = require('socket.io-client')('http://192.168.1.9:3000');
 
 io.on('connection', (client) => {
 
@@ -21,6 +22,12 @@ io.on('connection', (client) => {
         // Tx: envio de datos al front-end
         client.broadcast.emit('dataEmit', data);
 
+        // socket.on('connect', function(){
+        //     console.log('conectado con el servidor csa-front');
+        // });
+
+        socket.emit('realTime', data);
+        console.log(data);
         callback({
             ok: true,
             msg: 'datos recibidos!',
