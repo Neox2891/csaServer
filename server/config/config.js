@@ -18,7 +18,7 @@ let rezoned = () => {
 }
 
 //Configuracion del puerto
-process.env.PORT = process.env.PORT || 8080;
+process.env.PORT = process.env.PORT || 3000;
 
 //Configuracion del entorno
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
@@ -27,7 +27,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 let urlDB;
 
 if (process.env.NODE_ENV === 'dev') {
-    urlDB = 'mongodb://localhost:27017/csa_db';
+    urlDB = 'mongodb://localhost:27017/csaDB';
 } else {
     urlDB = process.env.MONGO_URI;
 }

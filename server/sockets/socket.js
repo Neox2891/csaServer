@@ -19,13 +19,13 @@ io.on('connection', (client) => {
 
     // Rx: Comunicacion en tiempo real
     client.on('dataSensors', (data, callback) => {
-        // Tx: envio de datos al front-end
+        
         client.broadcast.emit('dataEmit', data);
 
         // socket.on('connect', function(){
         //     console.log('conectado con el servidor csa-front');
         // });
-
+        // Tx: envio de datos al front-end
         socket.emit('realTime', data);
         console.log(data);
         callback({
