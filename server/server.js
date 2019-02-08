@@ -5,13 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
-const passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy;
-const User = require('./models/users');
 const cors = require('cors');
-var session = require('express-session');
-const FileStore = require('session-file-store')(session);
-const uuid = require('uuid/v4');
 const app = express();
 
 let server = http.createServer(app);
@@ -23,18 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-// add & configure middleware
-// app.use(session({
-//     genid: (req) => {
-//         console.log('Inside the session middleware')
-//         console.log(req.sessionID)
-//         return uuid(); // use UUIDs for session IDs
-//     },
-//     store: new FileStore(),
-//     secret: 'keyboard dog',
-//     resave: false,
-//     saveUninitialized: true
-// }));
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 

@@ -2,14 +2,13 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
-var passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy;
-const auth = require('../middlewares/auth').auth;
 const app = express();
 
 app.post('/login', (req, res) => {
 
   let body = req.body;
+
+  console.log(body);
 
   User.findOne({ email: body.email }, (err, usuarioDB) => {
     if (err) {
@@ -30,7 +29,7 @@ app.post('/login', (req, res) => {
         });
     }
 
-    if (!bcrypt.compareSync(body.password, usuarioDB.password)) {
+    if (!bcrypt.compareSync(body.passwd, usuarioDB.password)) {
         return res.status(400).json({
             ok: false,
             err: {
