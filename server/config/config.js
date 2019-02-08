@@ -23,6 +23,13 @@ process.env.PORT = process.env.PORT || 3000;
 //Configuracion del entorno
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+process.env.CADUCIDAD_TOKEN = '48h';
+
+/**
+* SEED de autenticación
+*/
+process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
+
 //Configuracion base de datos
 let urlDB;
 
