@@ -20,7 +20,11 @@ const ReferenceValuesSchema = new Schema({
     maxAir: {
         type: Number,
     },
-    actuators: [Number]
+    actuators: [Number],
+    flag: {
+        type: Boolean,
+        default: false 
+    }
 });
 
 module.exports = mongoose.model('ReferenceValues', ReferenceValuesSchema);

@@ -1,45 +1,54 @@
-const express = require('express');
-const User = require('../models/users');
-const bcrypt = require('bcrypt');
-var passport = require('passport'),
-LocalStrategy = require('passport-local').Strategy;
-const app = express();
+const jwt = require('jsonwebtoken');
 
-app.use(passport.initialize());
-app.use(passport.session());
+let verificarToken = (req, res, next) => {
+    // obtener informacion del header
+    let urlToken = req.query.token;
+    let token = req.get('token');
 
-let auth = (req, res, next) => {
+    if (urlToken) {
+        headerQueryToken(req, res, next, urlToken);
+    } else {
+        headerQueryToken(req, res, next, token);
+    }
 
-    passport.use(new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'passwd'
-    },
+};
 
-    function(username, password, done) {
-    User.findOne({ email: username }, function (err, user) {
-        
-        if (err) { return done(err); }
-        
-        if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+let headerQueryToken = (req, res, next, token) => {
+
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                err: {
+                    message: 'Token invalido!'
+                }
+            });
         }
-
-        if (!bcrypt.compareSync(password, user.password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-        }
-    //   if (!user.validPassword(password)) {
-    //     return done(null, false, { message: 'Incorrect password.' });
-    //   }
-        return done(null, user);
-    });
-    }))
-    
-//    passport.authenticate('local');
+        // crea una propiedad en la solicitud
+        req.usuario = decoded.usuario;
+        next();
+    })
 
 }
 
+let verificaAdminRole = (req, res, next) => {
+
+    let usuario = req.usuario;
+
+    if (usuario.role !== 'ADMIN_ROLE') {
+        return res.json({
+            ok: false,
+            err: {
+                message: 'El usuario no es administrador'
+            }
+        })
+    }
+
+    next();
+};
 
 module.exports = {
-    app,
-    auth
-}
+    verificarToken,
+    verificaAdminRole
+};

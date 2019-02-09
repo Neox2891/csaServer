@@ -31,7 +31,10 @@ app.post('/referenceValues', (req, res) => {
     maxHum = req.body.maxHum,
     minHum = req.body.minHum,
     maxAir = req.body.maxAir,
-    actuators = req.body.actuators;
+    actuators = req.body.actuators,
+    flag = req.body.flag;
+
+    console.log(req.body);
 
     let referenceValues = new ReferenceValues({
         maxTemp,
@@ -39,7 +42,8 @@ app.post('/referenceValues', (req, res) => {
         maxHum,
         minHum,
         maxAir,
-        actuators
+        actuators,
+        flag
     });
 
     referenceValues.save((err, referenceValuesDB) => {
@@ -51,7 +55,7 @@ app.post('/referenceValues', (req, res) => {
             });
         }
 
-        res.status(201).json({
+        return res.status(201).json({
             ok: true,
             referenceValuesDB
         });
