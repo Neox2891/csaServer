@@ -30,7 +30,7 @@ app.post('/users', (req, res) => {
             });    
         }
 
-        return res.status(201).json({
+        res.status(201).json({
             ok: true,
             user
         });

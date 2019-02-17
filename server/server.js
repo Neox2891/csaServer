@@ -40,6 +40,8 @@ mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
     console.log('Conectado con base de datos!');
 });
 
+mongoose.set('useCreateIndex', true);
+
 server.listen(process.env.PORT, (err) => {
 
     if (err) {

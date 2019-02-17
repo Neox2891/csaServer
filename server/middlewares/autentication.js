@@ -2,20 +2,10 @@ const jwt = require('jsonwebtoken');
 
 let verificarToken = (req, res, next) => {
     // obtener informacion del header
+    // req.get('token')
     let urlToken = req.query.token;
-    let token = req.get('token');
-
-    if (urlToken) {
-        headerQueryToken(req, res, next, urlToken);
-    } else {
-        headerQueryToken(req, res, next, token);
-    }
-
-};
-
-let headerQueryToken = (req, res, next, token) => {
-
-    jwt.verify(token, process.env.SEED, (err, decoded) => {
+    
+    jwt.verify(urlToken, process.env.SEED, (err, decoded) => {
 
         if (err) {
             return res.status(401).json({
@@ -30,9 +20,9 @@ let headerQueryToken = (req, res, next, token) => {
         next();
     })
 
-}
+};
 
-let verificaAdminRole = (req, res, next) => {
+let verificarAdminRole = (req, res, next) => {
 
     let usuario = req.usuario;
 
@@ -50,5 +40,5 @@ let verificaAdminRole = (req, res, next) => {
 
 module.exports = {
     verificarToken,
-    verificaAdminRole
+    verificarAdminRole
 };
