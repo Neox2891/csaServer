@@ -1,5 +1,6 @@
 const express = require('express');
 const ReferenceValues = require('../models/referenceValues');
+const { rezoned } = require('../config/config');
 const app = express();
 
 app.get('/referenceValues', (req, res) => {
@@ -33,6 +34,8 @@ app.post('/referenceValues', (req, res) => {
     maxAir = req.body.maxAir,
     flag = req.body.flag;
 
+    let date = rezoned().date.join('T');
+
     // let usuarioId = req.usuario._id;
 
     let referenceValues = new ReferenceValues({
@@ -41,6 +44,7 @@ app.post('/referenceValues', (req, res) => {
         maxHum,
         minHum,
         maxAir,
+        date,
         flag
     });
 

@@ -11,6 +11,10 @@ const actuatorsSchema = new Schema ({
     date: {
         type: String,
         required: [true, 'fecha es requerida']
+    },
+    flag: {
+        type: Boolean,
+        required: [true, 'La bandera flag es requerida']
     }
 });
 

@@ -13,7 +13,7 @@ app.get('/actuators', (req, res) => {
                 err
             });
         }
-
+        
         const latestActuators = actuatorsDb[actuatorsDb.length - 1];
         
         res.json({
@@ -34,6 +34,7 @@ app.post('/actuators', (req, res) => {
 
     actuators.actuators = body.actuators;
     actuators.date = date;
+    actuators.flag = body.flag;
 
     actuators.save((err, actuatorsDb) => {
         

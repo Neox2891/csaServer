@@ -30,6 +30,9 @@ const ReferenceValuesSchema = new Schema({
         default: 100,
         required: [true, 'Calidad de aire es requerida']
     },
+    date: {
+        type: String
+    },
     flag: {
         type: Boolean,
         default: false 
