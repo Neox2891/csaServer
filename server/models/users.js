@@ -22,6 +22,10 @@ let usersSchema = new Schema({
         type: String,
         required: [true, 'La contraseña es obligatoria!']
     },
+    phone: {
+        type: Number,
+        required: [true, 'El telefono es obligatorio!']
+    },
     img: {
         type: String
     },

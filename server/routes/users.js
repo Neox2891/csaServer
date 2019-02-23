@@ -14,6 +14,7 @@ app.post('/users', (req, res) => {
         name: body.name,
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
+        phone: body.phone,
         role: body.role,
         keyDevice: keygen._({
             specials: true
