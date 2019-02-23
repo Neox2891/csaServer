@@ -1,6 +1,7 @@
 const express = require('express');
 const Actuators = require('../models/actuators');
 const { rezoned } = require('../config/config');
+const { verificarToken } = require('../middlewares/autentication');
 const app = express();
 
 app.get('/actuators', (req, res) => {
@@ -34,7 +35,9 @@ app.post('/actuators', (req, res) => {
 
     actuators.actuators = body.actuators;
     actuators.date = date;
+    actuators.switch = body.switch;
     actuators.flag = body.flag;
+
 
     actuators.save((err, actuatorsDb) => {
         

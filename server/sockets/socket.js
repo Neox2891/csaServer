@@ -81,13 +81,18 @@ io.on('connection', (client) => {
 
         let notificar = new Notificar({});
 
-        if (data.temperature > 35) {
+        if (data.temperature > data.maxTemp) {
             notificar.notificacion = `Alerta temperatura Alta: ${data.temperature}`;
             sendMailNf('Temperatura alta', 'Alerta Temperatura', `${data.temperature}°C`, data.module);
         }
-        if (data.temperature < 34) {
+        if (data.temperature < data.minTemp) {
             notificar.notificacion = `Alerta temperatura baja: ${data.temperature}`;
             sendMailNf('Temperatura baja', 'Alerta Temperatura', `${data.temperature}°C`, data.module);
+        }
+
+        if (data.temperature < data.maxTemp && data.temperature > data.minTemp ) {
+            notificar.notificacion = `Temperatura regulada: ${data.temperature}`;
+            sendMailNf('Temperatura regulada', 'Alerta Temperatura', `${data.temperature}°C`, data.module);
         }
 
         notificar.module = data.module;
