@@ -1,7 +1,4 @@
 
 
 node_modules/
-
-sessions/
-
-test.js
+.env

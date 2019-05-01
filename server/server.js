@@ -6,7 +6,11 @@ const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const http = require('http');
 const cors = require('cors');
+const dotenv = require('dotenv').config();
 const app = express();
+
+let { error } = dotenv;
+if (error) throw new Error (error);
 
 let server = http.createServer(app);
 
@@ -31,13 +35,13 @@ app.use(require('./routes/index'));
 module.exports.io = socketIO(server);
 require('./sockets/socket');
 
-mongoose.connect(process.env.URLDB, { useNewUrlParser: true }, (err) => {
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, (err) => {
     
     if (err) {
         throw err;
     }
 
-    console.log('Conectado con base de datos!');
+   console.log('Conectado con base de datos!');
 });
 
 mongoose.set('useCreateIndex', true);

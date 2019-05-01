@@ -3,7 +3,7 @@ const Notificar = require('../models/notifications');
 const Sensores = require('../models/sensors');
 const nodemailer = require('nodemailer');
 let { rezoned } = require('../config/config');
-// const socket = require('socket.io-client')('http://192.168.1.14:3000');
+// const socket = require('socket.io-client')('http://192.168.1.14:3030');
 
 io.on('connection', (client) => {
 
