@@ -88,7 +88,7 @@ io.on('connection', (client) => {
         client.broadcast.emit('dbEmit', data);
 
     });
-
+    
     // notificaciones
     client.on('nfTemperature', (data, cb) => {
         client.broadcast.emit('nfTemp', data);
