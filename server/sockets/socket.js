@@ -3,7 +3,20 @@ const Notificar = require('../models/notifications');
 const Sensores = require('../models/sensors');
 const nodemailer = require('nodemailer');
 let { rezoned } = require('../config/config');
-// const socket = require('socket.io-client')('http://192.168.1.14:3030');
+const socket = require('socket.io-client')('http://192.168.1.61:3000');
+
+let connect = false;
+
+socket.on('connect', function(){
+    console.log('conectado con el servidor csa-front');
+    connect = true;
+});
+
+// Tx: envio de datos al front-end
+socket.on('disconnect', function() {
+    console.log('desconectado del servidor csa');
+    connect = false;
+}); // wait for reconnect
 
 io.on('connection', (client) => {
 
@@ -22,12 +35,13 @@ io.on('connection', (client) => {
         
         client.broadcast.emit('dataEmit', data);
 
-        // socket.on('connect', function(){
-        //     console.log('conectado con el servidor csa-front');
-        // });
-        // Tx: envio de datos al front-end
-        //socket.emit('realTime', data);
-        console.log(data);
+        if (connect) {
+            socket.emit('realTime', data);
+            console.log(data);
+        }
+
+        console.log('Listener server: ' + data);
+        
         callback({
             ok: true,
             msg: 'datos recibidos!',
